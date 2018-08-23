@@ -39,7 +39,6 @@ RUN export LANG=C.UTF-8 &&\
                           texlive-full=2017.2018* \
                           texlive-fonts-extra=2017.2018* \
                           texlive-fonts-recommended=2017.2018* \
-                          texlive-math-extra=2017.2018* \
                           texlive-lang-cjk=2017.2018* \
                           texlive-luatex=2017.2018* \
                           texlive-pstricks=2017.2018* \
@@ -63,6 +62,8 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pictures-doc \
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
+# install necessary R packages
+    R -e "install.packages(devtools)" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # clean up all temporary files
