@@ -12,6 +12,10 @@
 FROM ubuntu:18.04
 MAINTAINER Thomas Weise <tweise@ustc.edu.cn>
 
+# set the R repository as environment variable
+ENV R_REPO="http://cran.us.r-project.org"
+
+# do all the installation
 RUN export LANG=C.UTF-8 &&\
     apt-get clean &&\
     apt-get update &&\
@@ -63,8 +67,8 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
 # install necessary R packages
-    R --no-save --no-environ -e "install.packages(devtools, repos='http://cloud.r-project.org/')" &&\
-    R --no-save --no-environ -e "install.packages(ore, repos='http://cloud.r-project.org/')" &&\
+    R --no-save --no-environ -e "install.packages(devtools, repos='${R_REPO}')" &&\
+    R --no-save --no-environ -e "install.packages(ore, repos='${R_REPO}')" &&\
     R --no-save --no-environ -e "devtools::install.github('thomasWeise/utilizeR')" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
