@@ -68,7 +68,7 @@ RUN export LANG=C.UTF-8 &&\
     Rscript -e "if(!(require(\"callr\"))) install.packages(\"devtools\", ${R_params})" &&\
     Rscript -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
     Rscript -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
-    Rscript -e "devtools::install.github('thomasWeise/utilizeR')" &&\
+    Rscript -e "devtools::install_github('thomasWeise/utilizeR')" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # free huge amount of unused space
@@ -92,4 +92,5 @@ RUN export LANG=C.UTF-8 &&\
     rm -rf /var/lib/apt/lists/* &&\
     rm -f /etc/ssh/ssh_host_*
 
-VOLUME ["/work/"]
+# the volumes for the input and output
+VOLUME ["/input/", "/output/"]
