@@ -12,8 +12,12 @@
 FROM ubuntu:18.04
 MAINTAINER Thomas Weise <tweise@ustc.edu.cn>
 
+# set the environment with the repository list
+ENV R_REPOS="c(\"http://cran.us.r-project.org\", \"http://cran.uk.r-project.org\",  \"http://mirrors.ustc.edu.cn/CRAN\", \"http://cran.wu.ac.at/\", \"http://cran.utstat.utoronto.ca/\", \"http://cran.rstudio.com/\", \"https://cran.uni-muenster.de/\", \"http://ftp.iitm.ac.in/cran/\")"
+
 # do all the installation
 RUN export LANG=C.UTF-8 &&\
+    export DEBIAN_FRONTEND=noninteractive &&\
     apt-get clean &&\
     apt-get update &&\
     apt-get autoclean -y &&\
@@ -21,6 +25,8 @@ RUN export LANG=C.UTF-8 &&\
     apt-get update &&\
 # install utilities
     apt-get install -f -y apt-utils &&\
+# install tzdata, which is needed down the line
+    apt-get install -f -y tzdata=2018d* &&\
 # install some nice chinese fonts
     apt-get install -f -y fonts-arphic-bkai00mp \
                           fonts-arphic-bsmi00lp \
@@ -65,7 +71,7 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-science-doc &&\
     cd /tmp/ &&\
 # setup the R parameters for installing packages
-    R_params="repos=c(\"http://cran.us.r-project.org\", \"http://cran.uk.r-project.org\",  \"http://mirrors.ustc.edu.cn/CRAN\", \"http://cran.wu.ac.at/\", \"http://cran.utstat.utoronto.ca/\", \"http://cran.rstudio.com/\", \"https://cran.uni-muenster.de/\", \"http://ftp.iitm.ac.in/cran/\" ), dependencies=TRUE, clean=TRUE" &&\
+    R_params="repos=${R_REPOS}, dependencies=TRUE, clean=TRUE" &&\
     Rscript --no-save --no-environ -e "update.packages(ask=FALSE, ${R_params})" &&\
     Rscript --no-save --no-environ -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
     Rscript --no-save --no-environ -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
