@@ -12,9 +12,6 @@
 FROM ubuntu:18.04
 MAINTAINER Thomas Weise <tweise@ustc.edu.cn>
 
-# set the R repository as environment variable
-ENV R_REPO="http://cran.us.r-project.org"
-
 # do all the installation
 RUN export LANG=C.UTF-8 &&\
     apt-get clean &&\
@@ -66,10 +63,13 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pictures-doc \
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
-# install necessary R packages
-    R --no-save --no-environ -e "install.packages(devtools, repos='${R_REPO}')" &&\
-    R --no-save --no-environ -e "install.packages(ore, repos='${R_REPO}')" &&\
-    R --no-save --no-environ -e "devtools::install.github('thomasWeise/utilizeR')" &&\
+    cd /tmp/ &&\
+# setup the R parameters for installing packages
+    R_params="repos=c(\"http://cran.us.r-project.org\", \"http://cran.uk.r-project.org\",  \"http://mirrors.ustc.edu.cn/CRAN\", \"http://cran.wu.ac.at/\", \"http://cran.utstat.utoronto.ca/\", \"http://cran.rstudio.com/\", \"https://cran.uni-muenster.de/\", \"http://ftp.iitm.ac.in/cran/\" ), dependencies=TRUE, clean=TRUE" &&\
+    Rscript --no-save --no-environ -e "update.packages(ask=FALSE, ${R_params})" &&\
+    Rscript --no-save --no-environ -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
+    Rscript --no-save --no-environ -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
+    Rscript --no-save --no-environ -e "devtools::install.github('thomasWeise/utilizeR')" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # clean up all temporary files
