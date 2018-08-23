@@ -63,8 +63,9 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
 # install necessary R packages
-    sudo R -e "install.packages(devtools, repos='http://cloud.r-project.org/')" &&\
-    sudo R -e "devtools::install.github('thomasWeise/utilizeR')" &&\
+    R --no-save --no-environ -e "install.packages(devtools, repos='http://cloud.r-project.org/')" &&\
+    R --no-save --no-environ -e "install.packages(ore, repos='http://cloud.r-project.org/')" &&\
+    R --no-save --no-environ -e "devtools::install.github('thomasWeise/utilizeR')" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # clean up all temporary files
