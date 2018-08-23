@@ -54,9 +54,23 @@ RUN export LANG=C.UTF-8 &&\
 # install pandoc
     apt-get install -f -y pandoc=1.19.*\
                           pandoc-citeproc=0.10.* &&\
+# install dependencies needed later for R
+    apt-get install -f -y libxml2-dev \
+                          libssl-dev \
+                          libcurl4-openssl-dev &&\
 # install R
     apt-get install -f -y r-base=3.4.*\
                           r-base-dev=3.4.* &&\
+    cd /tmp/ &&\
+# setup the R parameters for installing packages
+    R_params="repos=${R_REPOS}, dependencies=TRUE, clean=TRUE" &&\
+    Rscript -e "update.packages(ask=FALSE, ${R_params})" &&\
+    Rscript -e "if(!(require(\"callr\"))) install.packages(\"devtools\", ${R_params})" &&\
+    Rscript -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
+    Rscript -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
+    Rscript -e "devtools::install.github('thomasWeise/utilizeR')" &&\
+# ensure that working directory exists
+    mkdir /work/ &&\
 # free huge amount of unused space
     apt-get purge -f -y make-doc \
                         texlive-fonts-extra-doc \
@@ -69,15 +83,6 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pictures-doc \
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
-    cd /tmp/ &&\
-# setup the R parameters for installing packages
-    R_params="repos=${R_REPOS}, dependencies=TRUE, clean=TRUE" &&\
-    Rscript --no-save --no-environ -e "update.packages(ask=FALSE, ${R_params})" &&\
-    Rscript --no-save --no-environ -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
-    Rscript --no-save --no-environ -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
-    Rscript --no-save --no-environ -e "devtools::install.github('thomasWeise/utilizeR')" &&\
-# ensure that working directory exists
-    mkdir /work/ &&\
 # clean up all temporary files
     apt-get clean &&\
     apt-get autoclean -y &&\
