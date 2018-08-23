@@ -1,5 +1,5 @@
 #
-# thomasweise/bookbuilder
+# thomasweise/docker-bookbuilder
 #
 # This is an image with a basic TeX Live installation,
 # pandoc, and R.
@@ -63,7 +63,8 @@ RUN export LANG=C.UTF-8 &&\
                         texlive-pstricks-doc \
                         texlive-science-doc &&\
 # install necessary R packages
-    R -e "install.packages(devtools)" &&\
+    sudo R -e "install.packages(devtools, repos='http://cloud.r-project.org/')" &&\
+    sudo R -e "devtools::install.github('thomasWeise/utilizeR')" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # clean up all temporary files
