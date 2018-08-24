@@ -57,7 +57,7 @@ RUN export LANG=C.UTF-8 &&\
 # now we can install this filter, and also pandoc, in the newest version
     cabal install pandoc pandoc-citeproc pandoc-crossref &&\
 # install in order to make svg -> pdf conversation possible
-    apt-get install librsvg2-bin librsvg2-common &&\
+    apt-get install -f -y librsvg2-bin librsvg2-common &&\
 # install dependencies needed later for R
     apt-get install -f -y libxml2-dev \
                           libssl-dev \
