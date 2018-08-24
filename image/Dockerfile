@@ -51,10 +51,14 @@ RUN export LANG=C.UTF-8 &&\
                           texlive-pstricks=2017.2018* \
                           texlive-science=2017.2018* \
                           texlive-xetex=2017.2018* &&\
+# we need zlib1g-dev for installing pandoc via cabal
+    apt-get install -f -y zlib1g zlib1g-dev &&\
+# we could install pandoc from apt, but then we cannot install pandoc-crossref
 # we need cabal-install from the haskell platform to install the pandoc-crossref filter
     apt-get install -f -y cabal-install &&\
     cabal update &&\
 # now we can install this filter, and also pandoc, in the newest version
+    cabal install --dependencies-only pandoc pandoc-citeproc pandoc-crossref &&\
     cabal install pandoc pandoc-citeproc pandoc-crossref &&\
 # install in order to make svg -> pdf conversation possible
     apt-get install -f -y librsvg2-bin librsvg2-common &&\
