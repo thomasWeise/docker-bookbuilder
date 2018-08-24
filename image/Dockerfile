@@ -51,9 +51,11 @@ RUN export LANG=C.UTF-8 &&\
                           texlive-pstricks=2017.2018* \
                           texlive-science=2017.2018* \
                           texlive-xetex=2017.2018* &&\
-# install pandoc
-    apt-get install -f -y pandoc=1.19.*\
-                          pandoc-citeproc=0.10.* &&\
+# we need cabal-install from the haskell platform to install the pandoc-crossref filter
+    apt-get install -f -y cabal-install &&\
+    cabal update &&\
+# now we can install this filter, and also pandoc, in the newest version
+    cabal install pandoc pandoc-citeproc pandoc-crossref &&\
 # install dependencies needed later for R
     apt-get install -f -y libxml2-dev \
                           libssl-dev \
