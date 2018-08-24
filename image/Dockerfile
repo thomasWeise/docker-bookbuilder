@@ -12,12 +12,11 @@
 FROM ubuntu:18.04
 MAINTAINER Thomas Weise <tweise@ustc.edu.cn>
 
-# set the environment with the repository list
-ENV R_REPOS="c(\"http://cran.us.r-project.org\", \"http://cran.uk.r-project.org\",  \"http://mirrors.ustc.edu.cn/CRAN\", \"http://cran.wu.ac.at/\", \"http://cran.utstat.utoronto.ca/\", \"http://cran.rstudio.com/\", \"https://cran.uni-muenster.de/\", \"http://ftp.iitm.ac.in/cran/\")"
-
 # do all the installation
 RUN export LANG=C.UTF-8 &&\
     export DEBIAN_FRONTEND=noninteractive &&\
+# update and clean packages
+    cd /tmp/ &&\
     apt-get clean &&\
     apt-get update &&\
     apt-get autoclean -y &&\
@@ -53,15 +52,13 @@ RUN export LANG=C.UTF-8 &&\
                           texlive-xetex=2017.2018* &&\
 # we need zlib1g-dev for installing pandoc via cabal
     apt-get install -f -y zlib1g zlib1g-dev &&\
-# we could install pandoc from apt, but then we cannot install pandoc-crossref
-# we need cabal-install from the haskell platform to install the pandoc-crossref filter
+# we could install pandoc from apt, but then we cannot install pandoc-crossref and latex-formulae-pandoc
+# we need cabal-install from the haskell platform to install the pandoc-crossref and latex-formulae-pandoc filters
     apt-get install -f -y cabal-install &&\
     cabal update &&\
 # now we can install this filter, and also pandoc, in the newest version
-    cabal install --dependencies-only pandoc pandoc-citeproc pandoc-crossref &&\
-    cabal install pandoc pandoc-citeproc pandoc-crossref &&\
-# install in order to make svg -> pdf conversation possible
-    apt-get install -f -y librsvg2-bin librsvg2-common &&\
+    cabal install --dependencies-only pandoc pandoc-citeproc pandoc-crossref latex-formulae-pandoc &&\
+    cabal install pandoc pandoc-citeproc pandoc-crossref latex-formulae-pandoc &&\
 # install dependencies needed later for R
     apt-get install -f -y libxml2-dev \
                           libssl-dev \
@@ -69,9 +66,8 @@ RUN export LANG=C.UTF-8 &&\
 # install R
     apt-get install -f -y r-base=3.4.*\
                           r-base-dev=3.4.* &&\
-    cd /tmp/ &&\
 # setup the R parameters for installing packages
-    R_params="repos=${R_REPOS}, dependencies=TRUE, clean=TRUE" &&\
+    R_params="repos=c(\"http://cran.us.r-project.org\", \"http://cran.uk.r-project.org\",  \"http://mirrors.ustc.edu.cn/CRAN\", \"http://cran.wu.ac.at/\", \"http://cran.utstat.utoronto.ca/\", \"http://cran.rstudio.com/\", \"https://cran.uni-muenster.de/\", \"http://ftp.iitm.ac.in/cran/\"), dependencies=TRUE, clean=TRUE" &&\
     Rscript -e "update.packages(ask=FALSE, ${R_params})" &&\
     Rscript -e "if(!(require(\"callr\"))) install.packages(\"devtools\", ${R_params})" &&\
     Rscript -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
