@@ -67,10 +67,10 @@ RUN export LANG=C.UTF-8 &&\
     Rscript -e "update.packages(ask=FALSE, ${R_params})" &&\
     Rscript -e "if(!(require(\"callr\"))) install.packages(\"devtools\", ${R_params})" &&\
     Rscript -e "if(!(require(\"devtools\"))) install.packages(\"devtools\", ${R_params})" &&\
-    Rscript -e "if(!(require(\"ore\"))) install.packages(\"ore\", ${R_params})" &&\
-    Rscript -e "devtools::install_github(\"thomasWeise/utilizeR\")" &&\
+# install the bookbuildeR package from http://github.com/thomasWeise/bookbuildeR
+    Rscript -e "devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
 # check that the required packages have actually been installed successfully
-    Rscript -e "if(!(require(\"devtools\") && require(\"ore\") && require(\"utilizeR\"))) { q(-1L); }" &&\
+    Rscript -e "if(!(require(\"bookbuildeR\"))) { q(-1L); }" &&\
 # ensure that working directory exists
     mkdir /work/ &&\
 # free huge amount of unused space
