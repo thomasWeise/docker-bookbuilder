@@ -19,7 +19,7 @@ cd /input/
 
 echo "Now executing the main bookbuilding process."
 
-Rscript -e "print(bookbuildeR::bookbuildeR.main(sourceFile=\"/input/$1\", destDir=\"/output/\", destName=\"$2\"));"
+Rscript -e "print(bookbuildeR::bookbuilder.main(sourceFile=\"/input/$1\", destDir=\"/output/\", destName=\"$2\"));"
 
 echo "Finished, exiting container."
 
