@@ -1,4 +1,4 @@
-# [thomasWeise/docker-bookbuilder](http://hub.docker.com/r/thomasweise/docker-bookbuilder/): A Docker Container for Building and Building Electronic Books from Pandoc Markdown
+# [thomasWeise/docker-bookbuilder](http://hub.docker.com/r/thomasweise/docker-bookbuilder/): A Docker Container for Building Electronic Books from Pandoc Markdown
 
 [![Docker Pulls](http://img.shields.io/docker/pulls/thomasweise/docker-bookbuilder.svg)](http://hub.docker.com/r/thomasweise/docker-bookbuilder/)
 [![Docker Stars](http://img.shields.io/docker/stars/thomasweise/docker-bookbuilder.svg)](http://hub.docker.com/r/thomasweise/docker-bookbuilder/)
