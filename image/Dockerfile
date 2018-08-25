@@ -15,7 +15,7 @@ MAINTAINER Thomas Weise <tweise@hfuu.edu.cn>
 # do all the installation
 RUN cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
-    Rscript -e "if(!(require(\"bookbuildeR\"))) { q(-1L); }" &&\
+    Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
 # the directories for input and output
     mkdir /input/ &&\
     mkdir /output/ &&\
