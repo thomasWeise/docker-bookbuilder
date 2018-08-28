@@ -16,6 +16,8 @@ MAINTAINER Thomas Weise <tweise@hfuu.edu.cn>
 RUN cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
+# downloading some templates
+    curl --output "$PANDOC_DIR/eisvogel.tex" https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
 # the directories for input and output
     mkdir /input/ &&\
     mkdir /output/ &&\
