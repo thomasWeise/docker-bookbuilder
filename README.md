@@ -7,13 +7,15 @@ This is a [docker](https://www.docker.com) container intended for building elect
 
 ## 1. License
 
+### 1.1. License of the Code Provided Here
+
 This image is licensed under the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007, which you can find in file [LICENSE.md](http://github.com/thomasWeise/docker-bookbuilder/blob/master/LICENSE.md). The license applies to the way the image is built, while the software components inside the image are under the respective licenses chosen by their respective copyright holders.
 
-### 1.2. Other Components Used
+### 1.2. Other Components Used, Licenses of Image Components
 
 #### 1.2.1. [Wandmalfarbe/pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template)
 
-The build process downloads and installs into the image the pandoc LaTeX template from [Wandmalfarbe/pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) which is under the [BSD 3 license](https://github.com/Wandmalfarbe/pandoc-latex-template/blob/master/LICENSE). For this, the following terms hold:
+The build process downloads and installs into the image the pandoc LaTeX template from [Wandmalfarbe/pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) by Pascal Wgler and John MacFarlane, which is under the [BSD 3 license](https://github.com/Wandmalfarbe/pandoc-latex-template/blob/master/LICENSE). For this, the following terms hold:
 
     % Copyright (c) 2018, Pascal Wagler;  
     % Copyright (c) 2014--2018, John MacFarlane
@@ -53,6 +55,21 @@ The build process downloads and installs into the image the pandoc LaTeX templat
     % For usage information and examples visit the GitHub page of this template:
     % https://github.com/Wandmalfarbe/pandoc-latex-template
     %%
+    
+
+#### 1.2.2.  [qualiacode/arabica](https://github.com/qualiacode/arabica)
+
+The build process downloads and installs into the image the pandoc LaTeX template from [qualiacode/arabica](https://github.com/qualiacode/arabica) by Martin Maga, which is under the [MIT license](https://github.com/qualiacode/arabica/blob/master/LICENSE). For this, the following terms hold:
+
+    MIT License
+    
+    Copyright (c) 2018 Martin Maga
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## 2. Contact
 
