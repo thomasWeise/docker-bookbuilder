@@ -20,7 +20,7 @@ RUN cd /tmp/ &&\
 # eisvogel needs to be fixed to accept the documentclass as input parameter
     temp="$(tempfile)" &&\
     curl -L --output "$temp" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
-    sed 's/scrartcl/\$documentclass\$/g' <"$temp" >"PANDOC_DIR/eisvogel.latex" &&\
+    sed 's/scrartcl/\$documentclass\$/g' <"$temp" >"$PANDOC_DIR/eisvogel.latex" &&\
     rm -f "$temp" &&\
     curl -L --output "$PANDOC_DIR/arabica.latex" http://github.com/qualiacode/arabica/blob/master/controls/arabica.latex &&\
     curl -L --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
