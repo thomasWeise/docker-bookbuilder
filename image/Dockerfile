@@ -17,11 +17,11 @@ RUN cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
 # downloading some templates
-    curl --output "$PANDOC_DIR/eisvogel.latex" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
-    curl --output "$PANDOC_DIR/arabica.latex" http://github.com/qualiacode/arabica/blob/master/controls/arabica.latex &&\
-    curl --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
+    curl -L --output "$PANDOC_DIR/eisvogel.latex" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
+    curl -L --output "$PANDOC_DIR/arabica.latex" http://github.com/qualiacode/arabica/blob/master/controls/arabica.latex &&\
+    curl -L --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
 # downloading some csl files
-    curl --output "$PANDOC_DIR/association-for-computing-machinery.csl" http://www.zotero.org/styles/association-for-computing-machinery &&\
+    curl -L --output "$PANDOC_DIR/association-for-computing-machinery.csl" http://www.zotero.org/styles/association-for-computing-machinery &&\
 # the directories for input and output
     mkdir /input/ &&\
     mkdir /output/ &&\
