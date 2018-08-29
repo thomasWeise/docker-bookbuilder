@@ -22,7 +22,7 @@ RUN cd /tmp/ &&\
     curl -L --output "$temp" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
     sed 's/scrartcl/\$documentclass\$/g' <"$temp" >"$PANDOC_DIR/eisvogel.latex" &&\
     rm -f "$temp" &&\
-    curl -L --output "$PANDOC_DIR/arabica.latex" http://github.com/qualiacode/arabica/blob/master/controls/arabica.latex &&\
+    curl -L --output "$PANDOC_DIR/arabica.latex" http://raw.githubusercontent.com/qualiacode/arabica/master/controls/arabica.latex &&\
     curl -L --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
 # downloading some csl files
     curl -L --output "$PANDOC_DIR/association-for-computing-machinery.csl" http://www.zotero.org/styles/association-for-computing-machinery &&\
