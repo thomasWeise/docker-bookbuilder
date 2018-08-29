@@ -18,10 +18,8 @@ RUN cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
 # downloading some templates
 # eisvogel needs to be fixed to accept the documentclass as input parameter
-    temp="$(tempfile)" &&\
-    curl -L --output "$temp" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
-    sed 's/scrartcl/\$documentclass\$/g' <"$temp" >"$PANDOC_DIR/eisvogel.latex" &&\
-    rm -f "$temp" &&\
+    curl -L --output "$PANDOC_DIR/eisvogel-article.latex" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
+    sed 's/scrartcl/scrbook/g' <"$PANDOC_DIR/eisvogel-article.latex" >"$PANDOC_DIR/eisvogel-book.latex" &&\
     curl -L --output "$PANDOC_DIR/arabica.latex" http://raw.githubusercontent.com/qualiacode/arabica/master/controls/arabica.latex &&\
     curl -L --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
 # downloading some csl files
