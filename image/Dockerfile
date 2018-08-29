@@ -17,7 +17,11 @@ RUN cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
 # downloading some templates
-    curl -L --output "$PANDOC_DIR/eisvogel.latex" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
+# eisvogel needs to be fixed to accept the documentclass as input parameter
+    temp="$(tempfile)" &&\
+    curl -L --output "$temp" http://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex &&\
+    sed 's/scrartcl/\$documentclass\$/g' <"$temp" >"PANDOC_DIR/eisvogel.latex" &&\
+    rm -f "$temp" &&\
     curl -L --output "$PANDOC_DIR/arabica.latex" http://github.com/qualiacode/arabica/blob/master/controls/arabica.latex &&\
     curl -L --output "$PANDOC_DIR/license_arabica.latex" http://github.com/qualiacode/arabica/raw/master/LICENSE.md &&\
 # downloading some csl files
