@@ -5,6 +5,8 @@
 
 This is a [docker](https://www.docker.com) container intended for building electronic books from [pandoc's markdown flavor](http://pandoc.org/MANUAL.html#pandocs-markdown) by using [pandoc](http://pandoc.org/), [`R`](http://www.r-project.org/), and [TeX Live](http://tug.org/texlive/). It has pre-installed the `R` package [`bookbuildeR`](http://github.com/thomasWeise/bookbuildeR) which provides an infrastructure and additional commands to deal with hierarchically structured books and documents.
 
+**Please read the documentation of [`bookbuildeR`](http://github.com/thomasWeise/bookbuildeR) and [this blog post](http://iao.hfuu.edu.cn/157) regarding how to use this image as fully-automated book writing and publishing tool chain.**
+
 ## 1. License
 
 ### 1.1. License of the Code Provided Here
