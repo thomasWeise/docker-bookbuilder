@@ -13,7 +13,14 @@ FROM thomasweise/docker-pandoc-r
 MAINTAINER Thomas Weise <tweise@hfuu.edu.cn>
 
 # do all the installation
-RUN cd /tmp/ &&\
+RUN apt-get clean &&\
+    apt-get update &&\
+    apt-get autoclean -y &&\
+    apt-get autoremove -y &&\
+    apt-get update &&\
+# install git, which we need to access code repositories
+    apt-get install -f -y git &&\
+    cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
 # downloading some templates
