@@ -13,25 +13,35 @@ FROM thomasweise/docker-pandoc-r
 MAINTAINER Thomas Weise <tweise@hfuu.edu.cn>
 
 # do all the installation
-RUN apt-get clean &&\
-    apt-get update &&\
-    apt-get autoclean -y &&\
-    apt-get autoremove -y &&\
-    apt-get update &&\
+RUN apt-get update &&\
 # install git, which we need to access code repositories
     apt-get install -f -y git &&\
     cd /tmp/ &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
     Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
+# delete not needed R stuff
+    find /usr/share/R/doc -type f ! -name "COPY*" -delete &&\
+    find /usr/share/R/doc -type d -empty -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/doc/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/help/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/example[s]*/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/demo/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/html/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/htmlwidgets/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/tinytest/.*" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/NEWS\.md" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/NEWS\.Rd" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/NEWS" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/AUTHORS" -delete || true &&\
+    find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/CITATION" -delete || true &&\
+    find $R_LIB_DIR -type f -empty -delete || true &&\
+    find $R_LIB_DIR -type d -empty -delete || true &&\
 # downloading some csl files
     curl -L --output "$PANDOC_DIR/association-for-computing-machinery.csl" http://www.zotero.org/styles/association-for-computing-machinery &&\
 # the directories for input and output
     mkdir /input/ &&\
     mkdir /output/ &&\
 # cleanup
-    apt-get clean &&\
-    apt-get autoclean -y &&\
-    apt-get autoremove -y &&\
     apt-get clean &&\
     rm -rf /tmp/* /var/tmp/* &&\
     rm -rf /var/lib/apt/lists/* &&\
