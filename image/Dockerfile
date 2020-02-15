@@ -17,11 +17,9 @@ RUN apt-get update &&\
 # install git, which we need to access code repositories
     apt-get install -f -y git &&\
     cd /tmp/ &&\
-    Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" &&\
-    Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" &&\
+    Rscript -e "if(!(require(\"bookbuildeR\"))) devtools::install_github(\"thomasWeise/bookbuildeR\")" || exit 1 &&\
+    Rscript -e "if(!(require(\"bookbuildeR\"))) { q(status=1L); }" || exit 1 &&\
 # delete not needed R stuff
-    find /usr/share/R/doc -type f ! -name "COPY*" -delete &&\
-    find /usr/share/R/doc -type d -empty -delete || true &&\
     find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/doc/.*" -delete || true &&\
     find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/help/.*" -delete || true &&\
     find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/example[s]*/.*" -delete || true &&\
