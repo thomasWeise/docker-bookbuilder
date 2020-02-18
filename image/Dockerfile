@@ -34,11 +34,9 @@ RUN apt-get update &&\
     find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/CITATION" -delete || true &&\
     find $R_LIB_DIR -type f -empty -delete || true &&\
     find $R_LIB_DIR -type d -empty -delete || true &&\
-    rm -rf /usr/share/R/doc &&\
     find /usr/share/R -type f -name "READM*" -delete || true &&\
     find /usr/share/R -type f -empty -delete || true &&\
     find /usr/share/R -type d -empty -delete || true &&\
-    mkdir -p /usr/share/R/doc &&\
 # downloading some csl files
     curl -L --output "$PANDOC_DIR/association-for-computing-machinery.csl" http://www.zotero.org/styles/association-for-computing-machinery &&\
 # the directories for input and output
