@@ -34,6 +34,8 @@ RUN apt-get update &&\
     find $R_LIB_DIR -type f -regex "$R_LIB_DIR/[^/]+/CITATION" -delete || true &&\
     find $R_LIB_DIR -type f -empty -delete || true &&\
     find $R_LIB_DIR -type d -empty -delete || true &&\
+    rm -rf /usr/share/R/doc &&\
+    mkdir -p /usr/share/R/doc &&\
     find /usr/share/R -type f -name "READM*" -delete || true &&\
     find /usr/share/R -type f -empty -delete || true &&\
     find /usr/share/R -type d -empty -delete || true &&\
