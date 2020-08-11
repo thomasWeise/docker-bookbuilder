@@ -9,7 +9,7 @@
 # software components inside the image are under the respective
 # licenses chosen by their respective copyright holders.
 #
-FROM thomasweise/docker-pandoc-r:latest
+FROM thomasweise/docker-pandoc-r:1.1
 MAINTAINER Thomas Weise <tweise@hfuu.edu.cn>
 
 # do all the installation
